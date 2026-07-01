@@ -71,7 +71,7 @@ export function AddTransactionSheet({ categories, onSave, onClose }: AddTransact
         <button
           type="button"
           onClick={() => setType('expense')}
-          className={`rounded-lg py-2 font-medium ${
+          className={`min-h-11 rounded-lg py-2 font-medium ${
             type === 'expense' ? 'bg-rust text-card' : 'bg-ink/5 text-ink/60'
           }`}
         >
@@ -80,7 +80,7 @@ export function AddTransactionSheet({ categories, onSave, onClose }: AddTransact
         <button
           type="button"
           onClick={() => setType('income')}
-          className={`rounded-lg py-2 font-medium ${
+          className={`min-h-11 rounded-lg py-2 font-medium ${
             type === 'income' ? 'bg-teal text-card' : 'bg-ink/5 text-ink/60'
           }`}
         >
@@ -128,7 +128,7 @@ export function AddTransactionSheet({ categories, onSave, onClose }: AddTransact
                   key={sub}
                   type="button"
                   onClick={() => setSubcategory(sub)}
-                  className={`shrink-0 rounded-full px-3 py-1.5 text-sm ${
+                  className={`inline-flex min-h-11 shrink-0 items-center rounded-full px-3 text-sm ${
                     subcategory === sub
                       ? 'bg-amber/20 text-amber ring-1 ring-amber'
                       : 'bg-ink/5 text-ink/70'
@@ -146,7 +146,7 @@ export function AddTransactionSheet({ categories, onSave, onClose }: AddTransact
                 key={m}
                 type="button"
                 onClick={() => setMethod(m)}
-                className={`rounded-full px-3 py-1.5 text-sm ${
+                className={`inline-flex min-h-11 items-center rounded-full px-3 text-sm ${
                   method === m ? 'bg-ink text-card' : 'bg-ink/5 text-ink/70'
                 }`}
               >

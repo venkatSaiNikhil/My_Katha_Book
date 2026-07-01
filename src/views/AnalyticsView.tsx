@@ -55,7 +55,7 @@ export function AnalyticsView({ transactions, categories }: AnalyticsViewProps) 
             key={p.id}
             type="button"
             onClick={() => setPeriod(p.id)}
-            className={`flex-1 rounded-full py-2 text-sm font-medium ${
+            className={`min-h-11 flex-1 rounded-full py-2 text-sm font-medium ${
               period === p.id ? 'bg-ink text-card' : 'bg-ink/5 text-ink/60'
             }`}
           >

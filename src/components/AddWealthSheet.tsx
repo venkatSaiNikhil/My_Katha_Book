@@ -91,7 +91,7 @@ export function AddWealthSheet({ onSave, onClose }: AddWealthSheetProps) {
               key={t}
               type="button"
               onClick={() => setType(t)}
-              className={`rounded-full px-3 py-1.5 text-sm ${
+              className={`inline-flex min-h-11 items-center rounded-full px-3 text-sm ${
                 type === t ? 'bg-teal text-card' : 'bg-ink/5 text-ink/70'
               }`}
             >
@@ -109,7 +109,7 @@ export function AddWealthSheet({ onSave, onClose }: AddWealthSheetProps) {
               key={t}
               type="button"
               onClick={() => setType(t)}
-              className={`rounded-full px-3 py-1.5 text-sm ${
+              className={`inline-flex min-h-11 items-center rounded-full px-3 text-sm ${
                 type === t ? 'bg-rust text-card' : 'bg-ink/5 text-ink/70'
               }`}
             >

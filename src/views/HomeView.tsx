@@ -146,7 +146,7 @@ export function HomeView({ transactions, categories, onDelete }: HomeViewProps) 
                         type="button"
                         aria-label={`Delete ${txn.subcategory}`}
                         onClick={() => handleDelete(txn)}
-                        className="text-ink/30 hover:text-rust"
+                        className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center text-ink/30 hover:text-rust"
                       >
                         ×
                       </button>
@@ -162,7 +162,11 @@ export function HomeView({ transactions, categories, onDelete }: HomeViewProps) 
       {pendingDeleteTxn && (
         <div className="fixed bottom-24 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-full bg-ink px-4 py-2 text-sm text-card shadow-lg">
           <span>Transaction deleted</span>
-          <button type="button" onClick={handleUndo} className="font-semibold underline">
+          <button
+            type="button"
+            onClick={handleUndo}
+            className="inline-flex min-h-11 items-center px-1 font-semibold underline"
+          >
             Undo
           </button>
         </div>

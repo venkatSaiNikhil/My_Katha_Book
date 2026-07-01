@@ -133,7 +133,7 @@ function WealthGroup({
               type="button"
               aria-label={`Delete ${entry.name}`}
               onClick={() => onDelete(entry.id)}
-              className="text-ink/30 hover:text-rust"
+              className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center text-ink/30 hover:text-rust"
             >
               ×
             </button>
