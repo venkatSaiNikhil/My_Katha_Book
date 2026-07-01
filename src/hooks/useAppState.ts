@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useStorage } from '../data/storage'
-import type { AppState, Category, Transaction, WealthEntry } from '../data/types'
+import type { AppState, Category, Transaction, User, WealthEntry } from '../data/types'
 
 export function useAppState() {
   const { load, save } = useStorage()
@@ -62,6 +62,18 @@ export function useAppState() {
     }))
   }, [])
 
+  const setUser = useCallback((user: User | null) => {
+    setState((prev) => ({ ...prev, user }))
+  }, [])
+
+  const setDriveFileIds = useCallback((driveFileIds: AppState['driveFileIds']) => {
+    setState((prev) => ({ ...prev, driveFileIds }))
+  }, [])
+
+  const mergeFromDrive = useCallback((partial: Partial<AppState>) => {
+    setState((prev) => ({ ...prev, ...partial }))
+  }, [])
+
   return {
     state,
     addTransaction,
@@ -72,5 +84,8 @@ export function useAppState() {
     deleteCategory,
     addSubcategory,
     removeSubcategory,
+    setUser,
+    setDriveFileIds,
+    mergeFromDrive,
   }
 }

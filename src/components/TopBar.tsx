@@ -1,23 +1,34 @@
 import type { User } from '../data/types'
+import { SyncStatus, type SyncStatusState } from './SyncStatus'
 
 interface TopBarProps {
   user: User | null
+  syncStatus: SyncStatusState
+  onSyncClick: () => void
+  onSignOut?: () => void
 }
 
-export function TopBar({ user }: TopBarProps) {
+export function TopBar({ user, syncStatus, onSyncClick, onSignOut }: TopBarProps) {
   return (
     <header className="sticky top-0 z-30 flex items-center justify-between border-b border-ink/10 bg-card px-4 py-3">
       <div className="text-lg font-semibold text-ink">
         Khata<span className="text-rust">.</span>
       </div>
       <div className="flex items-center gap-3">
-        <span className="flex items-center gap-1.5 rounded-full bg-ink/5 px-2.5 py-1 text-xs text-ink/60">
-          <span className="h-1.5 w-1.5 rounded-full bg-ink/30" />
-          Not synced
-        </span>
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ink/10 text-sm">
-          {user ? user.name.charAt(0).toUpperCase() : '👤'}
-        </div>
+        <SyncStatus status={syncStatus} onClick={onSyncClick} />
+        {user ? (
+          <button
+            type="button"
+            onClick={onSignOut}
+            aria-label="Sign out"
+            title={user.email}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-ink/10 text-sm font-medium text-ink/70"
+          >
+            {user.name.charAt(0).toUpperCase()}
+          </button>
+        ) : (
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ink/10 text-sm">👤</div>
+        )}
       </div>
     </header>
   )
