@@ -3,7 +3,6 @@ dist
 dist-ssr
 *.local
 .vite
-android
 .env
 .env.local
 coverage
