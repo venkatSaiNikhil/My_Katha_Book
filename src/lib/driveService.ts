@@ -28,6 +28,7 @@ export async function findFile(name: string, existingId: string | null): Promise
   const searchRes = await fetch(`${DRIVE_API}?q=${query}&fields=files(id)`, {
     headers: { Authorization: `Bearer ${token}` },
   })
+  if (!searchRes.ok) throw new Error(`Drive search failed (${searchRes.status})`)
   const searchData = (await searchRes.json()) as { files?: { id: string }[] }
   if (searchData.files && searchData.files.length > 0) {
     return searchData.files[0].id
@@ -41,13 +42,14 @@ export async function findFile(name: string, existingId: string | null): Promise
     },
     body: JSON.stringify({ name, mimeType: 'text/plain' }),
   })
+  if (!createRes.ok) throw new Error(`Drive file creation failed (${createRes.status})`)
   const createData = (await createRes.json()) as { id: string }
   return createData.id
 }
 
 export async function uploadFile(fileId: string, content: string, mimeType: string): Promise<void> {
   const token = getToken()
-  await fetch(`${DRIVE_UPLOAD_API}/${fileId}?uploadType=media`, {
+  const res = await fetch(`${DRIVE_UPLOAD_API}/${fileId}?uploadType=media`, {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -55,6 +57,7 @@ export async function uploadFile(fileId: string, content: string, mimeType: stri
     },
     body: content,
   })
+  if (!res.ok) throw new Error(`Drive upload failed (${res.status})`)
 }
 
 export async function downloadFile(fileId: string): Promise<string> {
@@ -62,6 +65,7 @@ export async function downloadFile(fileId: string): Promise<string> {
   const res = await fetch(`${DRIVE_API}/${fileId}?alt=media`, {
     headers: { Authorization: `Bearer ${token}` },
   })
+  if (!res.ok) throw new Error(`Drive download failed (${res.status})`)
   return res.text()
 }
 

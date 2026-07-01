@@ -50,13 +50,22 @@ function App() {
   const syncTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const runSync = async () => {
-    if (!stateRef.current.user || !getAccessToken()) return
+    if (!stateRef.current.user) return
+    if (!getAccessToken()) {
+      // Signed in but no Drive access token yet — e.g. the consent popup hasn't completed, was
+      // dismissed, or the token expired. Surface this instead of silently doing nothing so the
+      // sync pill is actionable (clicking it reopens sign-in to (re)request Drive access).
+      console.error('[khata sync] No Drive access token available')
+      setSyncStatus('error')
+      return
+    }
     setSyncStatus('syncing')
     try {
       const result = await syncAll(stateRef.current)
       setDriveFileIds({ txn: result.txnFileId, wealth: result.wealthFileId })
       setSyncStatus('ok')
-    } catch {
+    } catch (err) {
+      console.error('[khata sync] syncAll failed:', err)
       setSyncStatus('error')
       setSyncErrorToast(true)
       setTimeout(() => setSyncErrorToast(false), 3000)
@@ -76,7 +85,10 @@ function App() {
           mergeFromDrive(partial)
           setSyncStatus('ok')
         })
-        .catch(() => setSyncStatus('error'))
+        .catch((err) => {
+          console.error('[khata sync] loadFromDrive failed:', err)
+          setSyncStatus('error')
+        })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { User } from '../data/types'
 import { initAuth } from '../lib/googleAuth'
 
-const CLIENT_ID_KEY = 'khata_v1_client_id'
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
 interface LoginViewProps {
   onSignedIn: (user: User) => void
@@ -11,39 +11,19 @@ interface LoginViewProps {
 }
 
 export function LoginView({ onSignedIn, onTokenReady, onSkip }: LoginViewProps) {
-  const [clientId, setClientId] = useState(() => localStorage.getItem(CLIENT_ID_KEY) ?? '')
-  const [isGuideOpen, setGuideOpen] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isConnecting, setConnecting] = useState(false)
 
-  const handleContinue = async (idToUse: string = clientId) => {
-    const trimmed = idToUse.trim()
-    if (!trimmed) {
-      setError('Enter your Google Client ID to continue')
-      return
-    }
+  useEffect(() => {
+    if (!GOOGLE_CLIENT_ID) return
 
     setConnecting(true)
-    setError(null)
-
-    try {
-      await initAuth(trimmed, {
-        onUser: (user) => {
-          localStorage.setItem(CLIENT_ID_KEY, trimmed)
-          onSignedIn({ ...user, clientId: trimmed })
-        },
-        onTokenReady,
-      })
-    } catch {
-      setError('Could not load Google Sign-In. Check your connection and try again.')
-    } finally {
-      setConnecting(false)
-    }
-  }
-
-  useEffect(() => {
-    const saved = localStorage.getItem(CLIENT_ID_KEY)
-    if (saved) void handleContinue(saved)
+    initAuth(GOOGLE_CLIENT_ID, {
+      onUser: (user) => onSignedIn({ ...user, clientId: GOOGLE_CLIENT_ID }),
+      onTokenReady,
+    })
+      .catch(() => setError('Could not load Google Sign-In. Check your connection and try again.'))
+      .finally(() => setConnecting(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -65,55 +45,26 @@ export function LoginView({ onSignedIn, onTokenReady, onSkip }: LoginViewProps) 
           Your data lives in your own Google Drive — not our servers.
         </p>
 
-        <div id="gsi-btn" className="mt-4 flex justify-center" />
+        {GOOGLE_CLIENT_ID ? (
+          <>
+            <div id="gsi-btn" className="mt-5 flex justify-center" />
+            {isConnecting && <p className="mt-2 text-center text-xs text-ink/40">Connecting…</p>}
+            {error && <p className="mt-2 text-center text-xs text-rust">{error}</p>}
+            <p className="mt-3 text-center text-xs text-ink/40">
+              Granting Drive access opens a Google popup — if your browser blocks it, allow
+              popups for this site and try again.
+            </p>
+          </>
+        ) : (
+          <p className="mt-5 rounded-lg bg-rust/10 px-3 py-2 text-xs text-rust">
+            Google Sign-In isn't configured for this deployment yet. Set VITE_GOOGLE_CLIENT_ID and
+            rebuild — see the README for setup steps.
+          </p>
+        )}
 
-        <div className="my-4 flex items-center gap-2 text-xs text-ink/40">
-          <div className="h-px flex-1 bg-ink/10" />
-          or enter Client ID manually
-          <div className="h-px flex-1 bg-ink/10" />
-        </div>
-
-        <input
-          type="text"
-          placeholder="xxxx.apps.googleusercontent.com"
-          value={clientId}
-          onChange={(e) => setClientId(e.target.value)}
-          aria-label="Google Client ID"
-          className="w-full rounded-lg border border-ink/10 px-3 py-2 text-sm"
-        />
-
-        {error && <p className="mt-2 text-xs text-rust">{error}</p>}
-
-        <button
-          type="button"
-          onClick={() => handleContinue()}
-          disabled={isConnecting}
-          className="mt-3 w-full rounded-full bg-ink py-3 font-medium text-card disabled:opacity-40"
-        >
-          {isConnecting ? 'Connecting…' : 'Continue'}
-        </button>
-
-        <button type="button" onClick={onSkip} className="mt-2 w-full text-center text-xs text-ink/40">
+        <button type="button" onClick={onSkip} className="mt-4 w-full text-center text-xs text-ink/40">
           Skip for now — use offline
         </button>
-
-        <button
-          type="button"
-          onClick={() => setGuideOpen((v) => !v)}
-          className="mt-4 w-full text-left text-xs font-medium text-ink/50"
-        >
-          {isGuideOpen ? '▾' : '▸'} 5-minute setup guide
-        </button>
-
-        {isGuideOpen && (
-          <ol className="mt-2 list-decimal space-y-1 pl-5 text-xs text-ink/60">
-            <li>Create or select a project in Google Cloud Console</li>
-            <li>Enable the Google Drive API</li>
-            <li>Create an OAuth 2.0 Client ID (Web application)</li>
-            <li>Add your app URL under Authorized JavaScript origins</li>
-            <li>Add the drive.file scope on the OAuth consent screen, and add your account as a test user</li>
-          </ol>
-        )}
       </div>
     </div>
   )
