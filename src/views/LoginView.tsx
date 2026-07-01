@@ -50,6 +50,10 @@ export function LoginView({ onSignedIn, onTokenReady, onSkip }: LoginViewProps) 
             <div id="gsi-btn" className="mt-5 flex justify-center" />
             {isConnecting && <p className="mt-2 text-center text-xs text-ink/40">Connecting…</p>}
             {error && <p className="mt-2 text-center text-xs text-rust">{error}</p>}
+            <p className="mt-3 text-center text-xs text-ink/40">
+              Granting Drive access opens a Google popup — if your browser blocks it, allow
+              popups for this site and try again.
+            </p>
           </>
         ) : (
           <p className="mt-5 rounded-lg bg-rust/10 px-3 py-2 text-xs text-rust">
