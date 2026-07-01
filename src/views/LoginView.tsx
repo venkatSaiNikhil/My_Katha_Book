@@ -28,29 +28,29 @@ export function LoginView({ onSignedIn, onTokenReady, onSkip }: LoginViewProps) 
   }, [])
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-paper px-6 py-10">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-paper px-6 py-10">
       <div className="mb-8 text-center">
         <p className="text-4xl">📒</p>
         <h1 className="mt-2 text-2xl font-semibold text-ink">
           Khata<span className="text-rust">.</span>
         </h1>
-        <p className="mt-1 text-sm text-ink/50">
+        <p className="mt-1 text-sm text-ink/70">
           Your personal finance ledger. Private, offline-first.
         </p>
       </div>
 
       <div className="w-full max-w-sm rounded-2xl bg-card p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-ink">Sign in to continue</h2>
-        <p className="mt-1 text-sm text-ink/50">
+        <p className="mt-1 text-sm text-ink/70">
           Your data lives in your own Google Drive — not our servers.
         </p>
 
         {GOOGLE_CLIENT_ID ? (
           <>
             <div id="gsi-btn" className="mt-5 flex justify-center" />
-            {isConnecting && <p className="mt-2 text-center text-xs text-ink/40">Connecting…</p>}
+            {isConnecting && <p className="mt-2 text-center text-xs text-ink/70">Connecting…</p>}
             {error && <p className="mt-2 text-center text-xs text-rust">{error}</p>}
-            <p className="mt-3 text-center text-xs text-ink/40">
+            <p className="mt-3 text-center text-xs text-ink/70">
               Granting Drive access opens a Google popup — if your browser blocks it, allow
               popups for this site and try again.
             </p>
@@ -62,10 +62,10 @@ export function LoginView({ onSignedIn, onTokenReady, onSkip }: LoginViewProps) 
           </p>
         )}
 
-        <button type="button" onClick={onSkip} className="mt-4 w-full text-center text-xs text-ink/40">
+        <button type="button" onClick={onSkip} className="mt-4 w-full text-center text-xs text-ink/70">
           Skip for now — use offline
         </button>
       </div>
-    </div>
+    </main>
   )
 }

@@ -22,9 +22,11 @@ export function TopBar({ user, syncStatus, onSyncClick, onSignOut }: TopBarProps
             onClick={onSignOut}
             aria-label="Sign out"
             title={user.email}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-ink/10 text-sm font-medium text-ink/70"
+            className="flex h-11 w-11 items-center justify-center"
           >
-            {user.name.charAt(0).toUpperCase()}
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink/10 text-sm font-medium text-ink/70">
+              {user.name.charAt(0).toUpperCase()}
+            </span>
           </button>
         ) : (
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ink/10 text-sm">👤</div>

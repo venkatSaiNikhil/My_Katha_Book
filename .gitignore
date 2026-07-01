@@ -3,8 +3,12 @@ dist
 dist-ssr
 *.local
 .vite
-android
 .env
 .env.local
 coverage
 *.tsbuildinfo
+test-results
+playwright-report
+blob-report
+playwright/.cache
+lighthouse-report.json

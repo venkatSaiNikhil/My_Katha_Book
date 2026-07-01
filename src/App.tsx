@@ -155,29 +155,31 @@ function App() {
       />
       <TabBar active={activeTab} onChange={setActiveTab} />
 
-      {activeTab === 'today' && (
-        <HomeView
-          transactions={state.transactions}
-          categories={state.categories}
-          onDelete={handleDeleteTransaction}
-        />
-      )}
-      {activeTab === 'analytics' && (
-        <AnalyticsView transactions={state.transactions} categories={state.categories} />
-      )}
-      {activeTab === 'wealth' && (
-        <WealthView wealth={state.wealth} onAdd={handleAddWealth} onDelete={handleDeleteWealth} />
-      )}
-      {activeTab === 'save' && <SavingsView transactions={state.transactions} />}
-      {activeTab === 'categories' && (
-        <CategoriesView
-          categories={state.categories}
-          onAddCategory={addCategory}
-          onDeleteCategory={deleteCategory}
-          onAddSubcategory={addSubcategory}
-          onRemoveSubcategory={removeSubcategory}
-        />
-      )}
+      <main>
+        {activeTab === 'today' && (
+          <HomeView
+            transactions={state.transactions}
+            categories={state.categories}
+            onDelete={handleDeleteTransaction}
+          />
+        )}
+        {activeTab === 'analytics' && (
+          <AnalyticsView transactions={state.transactions} categories={state.categories} />
+        )}
+        {activeTab === 'wealth' && (
+          <WealthView wealth={state.wealth} onAdd={handleAddWealth} onDelete={handleDeleteWealth} />
+        )}
+        {activeTab === 'save' && <SavingsView transactions={state.transactions} />}
+        {activeTab === 'categories' && (
+          <CategoriesView
+            categories={state.categories}
+            onAddCategory={addCategory}
+            onDeleteCategory={deleteCategory}
+            onAddSubcategory={addSubcategory}
+            onRemoveSubcategory={removeSubcategory}
+          />
+        )}
+      </main>
 
       <Fab onClick={() => setSheetOpen(true)} />
 

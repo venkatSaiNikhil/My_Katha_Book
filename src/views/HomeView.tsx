@@ -105,7 +105,7 @@ export function HomeView({ transactions, categories, onDelete }: HomeViewProps) 
       </div>
 
       {sorted.length === 0 ? (
-        <div className="flex flex-col items-center gap-2 py-16 text-center text-ink/50">
+        <div className="flex flex-col items-center gap-2 py-16 text-center text-ink/70">
           <span className="text-4xl">🧾</span>
           <p>Tap ＋ to log your first transaction</p>
         </div>
@@ -113,7 +113,7 @@ export function HomeView({ transactions, categories, onDelete }: HomeViewProps) 
         <div className="space-y-6">
           {groups.map((group) => (
             <div key={group.key}>
-              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink/40">
+              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink/70">
                 {group.label}
               </h3>
               <ul className="space-y-2">
@@ -134,7 +134,7 @@ export function HomeView({ transactions, categories, onDelete }: HomeViewProps) 
                       </span>
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-medium text-ink">{txn.subcategory}</p>
-                        <p className="truncate text-xs text-ink/50">{secondary}</p>
+                        <p className="truncate text-xs text-ink/70">{secondary}</p>
                       </div>
                       <span
                         className={`font-semibold ${txn.type === 'income' ? 'text-teal' : 'text-rust'}`}
@@ -146,7 +146,7 @@ export function HomeView({ transactions, categories, onDelete }: HomeViewProps) 
                         type="button"
                         aria-label={`Delete ${txn.subcategory}`}
                         onClick={() => handleDelete(txn)}
-                        className="text-ink/30 hover:text-rust"
+                        className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center text-ink/30 hover:text-rust"
                       >
                         ×
                       </button>
@@ -162,7 +162,11 @@ export function HomeView({ transactions, categories, onDelete }: HomeViewProps) 
       {pendingDeleteTxn && (
         <div className="fixed bottom-24 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-full bg-ink px-4 py-2 text-sm text-card shadow-lg">
           <span>Transaction deleted</span>
-          <button type="button" onClick={handleUndo} className="font-semibold underline">
+          <button
+            type="button"
+            onClick={handleUndo}
+            className="inline-flex min-h-11 items-center px-1 font-semibold underline"
+          >
             Undo
           </button>
         </div>
@@ -182,7 +186,7 @@ function SummaryCell({
 }) {
   return (
     <div className="text-center">
-      <p className="text-xs text-ink/50">{label}</p>
+      <p className="text-xs text-ink/70">{label}</p>
       <p className={`text-sm font-semibold ${tone === 'teal' ? 'text-teal' : 'text-rust'}`}>
         {formatRupee(value)}
       </p>

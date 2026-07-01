@@ -28,7 +28,7 @@ export function SavingsView({ transactions }: SavingsViewProps) {
 
   if (!hasIncome || expenseCount < 5) {
     return (
-      <div className="px-4 py-16 text-center text-ink/50">
+      <div className="px-4 py-16 text-center text-ink/70">
         <p className="text-4xl">📊</p>
         <p className="mt-2">
           Log a bit more data — add your income and at least 5 expenses this month to see savings
@@ -64,7 +64,7 @@ export function SavingsView({ transactions }: SavingsViewProps) {
                 <li key={s.subcategory}>
                   <div className="mb-1 flex items-center justify-between text-xs text-ink/70">
                     <span className="truncate">
-                      {s.subcategory} <span className="text-ink/40">×{s.count}</span>
+                      {s.subcategory} <span className="text-ink/70">×{s.count}</span>
                     </span>
                     <span>{formatRupee(s.amountPaise)}</span>
                   </div>
@@ -86,15 +86,15 @@ export function SavingsView({ transactions }: SavingsViewProps) {
               Cutting back 30% here is realistic.
             </p>
             <div className="mt-3 rounded-lg bg-teal/10 p-3">
-              <p className="text-xs text-ink/50">Potential monthly saving</p>
+              <p className="text-xs text-ink/70">Potential monthly saving</p>
               <p className="text-xl font-semibold text-teal">
                 {formatRupee(suggestion.potentialMonthlySavingPaise)}
               </p>
-              <p className="text-xs text-ink/50">
+              <p className="text-xs text-ink/70">
                 ≈ {formatRupee(suggestion.potentialYearlySavingPaise)} / year
               </p>
             </div>
-            <p className="mt-2 text-xs text-ink/50">Redirect this to an FD or SIP to put it to work.</p>
+            <p className="mt-2 text-xs text-ink/70">Redirect this to an FD or SIP to put it to work.</p>
           </div>
         </>
       )}
@@ -113,7 +113,7 @@ function SummaryCell({
 }) {
   return (
     <div className="text-center">
-      <p className="text-xs text-ink/50">{label}</p>
+      <p className="text-xs text-ink/70">{label}</p>
       <p className={`text-sm font-semibold ${tone === 'teal' ? 'text-teal' : 'text-rust'}`}>
         {formatRupee(value)}
       </p>

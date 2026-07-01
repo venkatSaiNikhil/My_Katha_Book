@@ -19,7 +19,7 @@ export function SyncStatus({ status, onClick }: SyncStatusProps) {
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center gap-1.5 rounded-full bg-ink/5 px-2.5 py-1 text-xs text-ink/60"
+      className="flex min-h-11 items-center gap-1.5 rounded-full bg-ink/5 px-2.5 text-xs text-ink/70"
     >
       <span className={`h-1.5 w-1.5 rounded-full ${config.dot} ${config.pulse ? 'animate-pulse' : ''}`} />
       {config.label}

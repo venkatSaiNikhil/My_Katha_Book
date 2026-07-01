@@ -44,7 +44,7 @@ export function CategoriesView({
                 <button
                   type="button"
                   onClick={() => onDeleteCategory(cat.id)}
-                  className="text-xs text-rust"
+                  className="min-h-11 min-w-11 p-2 text-xs text-rust"
                 >
                   Delete
                 </button>
@@ -54,14 +54,14 @@ export function CategoriesView({
               {cat.subcategories.map((sub) => (
                 <span
                   key={sub}
-                  className="flex items-center gap-1 rounded-full bg-ink/5 px-2.5 py-1 text-xs text-ink/70"
+                  className="flex items-center gap-1 rounded-full bg-ink/5 pl-2.5 text-xs text-ink/70"
                 >
                   {sub}
                   <button
                     type="button"
                     aria-label={`Remove ${sub}`}
                     onClick={() => onRemoveSubcategory(cat.id, sub)}
-                    className="text-ink/40 hover:text-rust"
+                    className="inline-flex min-h-11 min-w-11 items-center justify-center text-ink/70 hover:text-rust"
                   >
                     ×
                   </button>
@@ -76,12 +76,12 @@ export function CategoriesView({
                     onChange={(e) => setNewSub(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddSub(cat.id)}
                     aria-label={`New sub-category for ${cat.label}`}
-                    className="w-28 rounded-full border border-ink/10 px-2 py-1 text-xs"
+                    className="min-h-11 w-28 rounded-full border border-ink/10 px-2 text-xs"
                   />
                   <button
                     type="button"
                     onClick={() => handleAddSub(cat.id)}
-                    className="text-xs font-medium text-teal"
+                    className="min-h-11 min-w-11 px-2 text-xs font-medium text-teal"
                   >
                     Add
                   </button>
@@ -90,7 +90,7 @@ export function CategoriesView({
                 <button
                   type="button"
                   onClick={() => setAddingSubFor(cat.id)}
-                  className="rounded-full bg-ink/5 px-2.5 py-1 text-xs text-ink/50"
+                  className="inline-flex min-h-11 items-center rounded-full bg-ink/5 px-2.5 text-xs text-ink/70"
                 >
                   ＋ add sub
                 </button>

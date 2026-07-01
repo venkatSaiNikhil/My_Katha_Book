@@ -89,10 +89,14 @@ export function AddCategorySheet({ existingLabels, onSave, onClose }: AddCategor
             type="button"
             onClick={() => setColor(c)}
             aria-label={`Color ${c}`}
-            className={`h-8 w-8 rounded-full ${COLOR_SWATCH[c]} ${
-              color === c ? 'ring-2 ring-ink ring-offset-2' : ''
-            }`}
-          />
+            className="flex h-11 w-11 items-center justify-center"
+          >
+            <span
+              className={`h-8 w-8 rounded-full ${COLOR_SWATCH[c]} ${
+                color === c ? 'ring-2 ring-ink ring-offset-2' : ''
+              }`}
+            />
+          </button>
         ))}
       </div>
 
@@ -115,7 +119,7 @@ export function AddCategorySheet({ existingLabels, onSave, onClose }: AddCategor
         Save category
       </button>
 
-      <button type="button" onClick={onClose} className="text-center text-sm text-ink/40">
+      <button type="button" onClick={onClose} className="text-center text-sm text-ink/70">
         Cancel
       </button>
     </div>
