@@ -119,7 +119,7 @@ export function AddCategorySheet({ existingLabels, onSave, onClose }: AddCategor
         Save category
       </button>
 
-      <button type="button" onClick={onClose} className="text-center text-sm text-ink/40">
+      <button type="button" onClick={onClose} className="text-center text-sm text-ink/70">
         Cancel
       </button>
     </div>

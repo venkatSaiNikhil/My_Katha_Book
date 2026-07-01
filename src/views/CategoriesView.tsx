@@ -61,7 +61,7 @@ export function CategoriesView({
                     type="button"
                     aria-label={`Remove ${sub}`}
                     onClick={() => onRemoveSubcategory(cat.id, sub)}
-                    className="inline-flex min-h-11 min-w-11 items-center justify-center text-ink/40 hover:text-rust"
+                    className="inline-flex min-h-11 min-w-11 items-center justify-center text-ink/70 hover:text-rust"
                   >
                     ×
                   </button>
@@ -90,7 +90,7 @@ export function CategoriesView({
                 <button
                   type="button"
                   onClick={() => setAddingSubFor(cat.id)}
-                  className="inline-flex min-h-11 items-center rounded-full bg-ink/5 px-2.5 text-xs text-ink/50"
+                  className="inline-flex min-h-11 items-center rounded-full bg-ink/5 px-2.5 text-xs text-ink/70"
                 >
                   ＋ add sub
                 </button>

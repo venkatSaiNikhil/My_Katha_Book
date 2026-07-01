@@ -22,7 +22,7 @@ export function TabBar({ active, onChange }: TabBarProps) {
           type="button"
           onClick={() => onChange(tab.id)}
           className={`flex-1 py-3 text-sm font-medium ${
-            active === tab.id ? 'border-b-2 border-rust text-rust' : 'text-ink/60'
+            active === tab.id ? 'border-b-2 border-rust text-rust' : 'text-ink/70'
           }`}
         >
           {tab.label}

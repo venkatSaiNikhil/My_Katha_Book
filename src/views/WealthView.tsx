@@ -120,7 +120,7 @@ function WealthGroup({
             </span>
             <div className="min-w-0 flex-1">
               <p className="truncate font-medium text-ink">{entry.name}</p>
-              <p className="truncate text-xs text-ink/50">
+              <p className="truncate text-xs text-ink/70">
                 {[entry.bank, entry.interestRate ? `${entry.interestRate}%` : null, entry.maturityDate]
                   .filter(Boolean)
                   .join(' · ')}

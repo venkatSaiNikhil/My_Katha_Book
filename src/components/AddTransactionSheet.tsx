@@ -72,7 +72,7 @@ export function AddTransactionSheet({ categories, onSave, onClose }: AddTransact
           type="button"
           onClick={() => setType('expense')}
           className={`min-h-11 rounded-lg py-2 font-medium ${
-            type === 'expense' ? 'bg-rust text-card' : 'bg-ink/5 text-ink/60'
+            type === 'expense' ? 'bg-rust text-card' : 'bg-ink/5 text-ink/70'
           }`}
         >
           Expense
@@ -81,7 +81,7 @@ export function AddTransactionSheet({ categories, onSave, onClose }: AddTransact
           type="button"
           onClick={() => setType('income')}
           className={`min-h-11 rounded-lg py-2 font-medium ${
-            type === 'income' ? 'bg-teal text-card' : 'bg-ink/5 text-ink/60'
+            type === 'income' ? 'bg-teal text-card' : 'bg-ink/5 text-ink/70'
           }`}
         >
           Income
@@ -89,7 +89,7 @@ export function AddTransactionSheet({ categories, onSave, onClose }: AddTransact
       </div>
 
       <label className="flex items-center gap-2 rounded-lg border border-ink/10 px-3 py-2">
-        <span className="text-xl text-ink/40">₹</span>
+        <span className="text-xl text-ink/70">₹</span>
         <input
           type="text"
           inputMode="decimal"

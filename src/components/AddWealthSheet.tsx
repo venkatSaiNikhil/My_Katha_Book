@@ -84,7 +84,7 @@ export function AddWealthSheet({ onSave, onClose }: AddWealthSheetProps) {
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-ink/40">Assets</p>
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-ink/70">Assets</p>
         <div className="flex flex-wrap gap-2">
           {ASSET_TYPES.map((t) => (
             <button
@@ -102,7 +102,7 @@ export function AddWealthSheet({ onSave, onClose }: AddWealthSheetProps) {
       </div>
 
       <div>
-        <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-ink/40">Debt</p>
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-ink/70">Debt</p>
         <div className="flex flex-wrap gap-2">
           {DEBT_TYPES.map((t) => (
             <button
@@ -129,7 +129,7 @@ export function AddWealthSheet({ onSave, onClose }: AddWealthSheetProps) {
       />
 
       <label className="flex items-center gap-2 rounded-lg border border-ink/10 px-3 py-2">
-        <span className="text-ink/40">₹</span>
+        <span className="text-ink/70">₹</span>
         <input
           type="text"
           inputMode="decimal"
@@ -249,7 +249,7 @@ export function AddWealthSheet({ onSave, onClose }: AddWealthSheetProps) {
         Save
       </button>
 
-      <button type="button" onClick={onClose} className="text-center text-sm text-ink/40">
+      <button type="button" onClick={onClose} className="text-center text-sm text-ink/70">
         Cancel
       </button>
     </div>
