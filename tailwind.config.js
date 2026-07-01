@@ -13,6 +13,15 @@ export default {
         plum: '#6B3F63',
         slate: '#3E4C56',
       },
+      keyframes: {
+        'slide-up': {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'slide-up': 'slide-up 0.25s ease-out',
+      },
     },
   },
   plugins: [],
