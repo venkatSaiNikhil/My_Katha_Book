@@ -17,14 +17,14 @@ declare global {
             client_id: string
             scope: string
             callback: (response: { access_token: string }) => void
-          }) => { requestAccessToken: (options: { prompt: string }) => void }
+          }) => { requestAccessToken: (options?: { prompt?: string }) => void }
         }
       }
     }
   }
 }
 
-let tokenClient: { requestAccessToken: (options: { prompt: string }) => void } | null = null
+let tokenClient: { requestAccessToken: (options?: { prompt?: string }) => void } | null = null
 let initializedClientId: string | null = null
 let initPromise: Promise<void> | null = null
 
@@ -104,7 +104,11 @@ export async function initAuth(clientId: string, options: InitAuthOptions): Prom
       callback: (response) => {
         const user = decodeIdToken(response.credential)
         options.onUser(user)
-        tokenClient?.requestAccessToken({ prompt: '' })
+        // No `prompt` override here: forcing silent mode (prompt: '') fails quietly the first
+        // time a user grants the drive.file scope, since silent requests only succeed for scopes
+        // already consented to. Leaving it default lets Google show the consent popup when
+        // needed, and go silent automatically on later runs once consent is on record.
+        tokenClient?.requestAccessToken()
       },
     })
 

@@ -50,7 +50,14 @@ function App() {
   const syncTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const runSync = async () => {
-    if (!stateRef.current.user || !getAccessToken()) return
+    if (!stateRef.current.user) return
+    if (!getAccessToken()) {
+      // Signed in but no Drive access token yet — e.g. the consent popup hasn't completed, was
+      // dismissed, or the token expired. Surface this instead of silently doing nothing so the
+      // sync pill is actionable (clicking it reopens sign-in to (re)request Drive access).
+      setSyncStatus('error')
+      return
+    }
     setSyncStatus('syncing')
     try {
       const result = await syncAll(stateRef.current)
