@@ -52,12 +52,37 @@ Final checklist from the orchestration guide, run against the `phase-5-qa-androi
   survive a future `cap add` re-run — scoped to source only via Capacitor's own generated
   `android/.gitignore` (build output, copied web assets, and generated configs stay untracked).
 
+### Debug APK — built
+
+Android Studio wasn't available, but a real APK doesn't actually need the IDE — it needs the
+Android SDK build tools and a JDK, both scriptable from the command line:
+
+- Installed OpenJDK 17 (initial attempt) then **OpenJDK 21** — `capacitor-android`'s Gradle module
+  targets Java 21, so 17 wasn't enough (`invalid source release: 21`).
+- Downloaded the Android SDK command-line tools, accepted licenses, installed `platform-tools`,
+  `platforms;android-36`, `build-tools;36.0.0` via `sdkmanager` (compileSdk/targetSdk 36, per
+  `android/variables.gradle`).
+- Hit one Windows-specific gotcha: `android/local.properties` needs `sdk.dir` with forward
+  slashes or escaped backslashes — a plain single-backslash Windows path gets corrupted by Java's
+  properties-file parser (backslash is an escape character), which surfaced as a cryptic
+  `IOException: The filename, directory name, or volume label syntax is incorrect` deep in
+  Gradle's SDK locator.
+- `./gradlew assembleDebug` then succeeded: **`android/app/build/outputs/apk/debug/app-debug.apk`**
+  (4.0 MB, also copied to `~/Downloads/Khata-debug.apk`), containing the real Capacitor-built
+  bundle (root-relative asset paths, not the GitHub Pages base).
+
+This is a **debug build** (unsigned, not Play Store-ready) — fine for sideloading onto your own
+device to test. To install: copy the APK to your phone, enable "Install from unknown sources" for
+whatever app you use to open it (Files, a browser, etc.), and tap it. `adb install app-debug.apk`
+works too if you have a device connected via USB with USB debugging enabled.
+
+**Still true:** Android Studio itself wasn't opened, so this hasn't been visually verified running
+on-device or in an emulator — only that the build compiles and packages correctly. If it doesn't
+launch cleanly, opening `android/` in Android Studio will give a much better debugging experience
+than the command line.
+
 ### Not completed — needs your local machine
 
-- **Android Studio / the Android SDK are not installed in this environment**, so `npx cap open
-  android` and an actual on-device or emulator Run haven't been performed. That's the remaining
-  step to produce a real, installable APK — open the `android/` folder in Android Studio and
-  click Run.
 - **Native Google Sign-In is not wired up.** The app currently signs in via the Google Identity
   Services *JS SDK* running inside the WebView. Google restricts OAuth flows in embedded
   WebViews for security and may surface a `disallowed_useragent` error on-device. Getting sign-in
@@ -66,3 +91,6 @@ Final checklist from the orchestration guide, run against the `phase-5-qa-androi
   `strings.xml` — that's a separate follow-up, out of scope for this phase. Everything else
   (offline transaction/wealth/category tracking, analytics, savings suggestions) works fully
   without it, since auth was designed to be skippable from Phase 4 onward.
+- **Release signing.** This debug APK isn't signed for release/Play Store distribution — that
+  needs a keystore only you should generate and hold onto (`keytool -genkey`), configured in
+  `android/app/build.gradle`.
