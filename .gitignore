@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+*.local
+.vite
+android
+.env
+.env.local
+coverage
+*.tsbuildinfo
