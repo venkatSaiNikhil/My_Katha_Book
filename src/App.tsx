@@ -14,7 +14,17 @@ import { SavingsView } from './views/SavingsView'
 import { WealthView } from './views/WealthView'
 
 function App() {
-  const { state, addTransaction, deleteTransaction } = useAppState()
+  const {
+    state,
+    addTransaction,
+    deleteTransaction,
+    addWealth,
+    deleteWealth,
+    addCategory,
+    deleteCategory,
+    addSubcategory,
+    removeSubcategory,
+  } = useAppState()
   const [activeTab, setActiveTab] = useState<TabId>('today')
   const [isSheetOpen, setSheetOpen] = useState(false)
   const [showSavedToast, setShowSavedToast] = useState(false)
@@ -37,10 +47,22 @@ function App() {
           onDelete={deleteTransaction}
         />
       )}
-      {activeTab === 'analytics' && <AnalyticsView />}
-      {activeTab === 'wealth' && <WealthView />}
-      {activeTab === 'save' && <SavingsView />}
-      {activeTab === 'categories' && <CategoriesView />}
+      {activeTab === 'analytics' && (
+        <AnalyticsView transactions={state.transactions} categories={state.categories} />
+      )}
+      {activeTab === 'wealth' && (
+        <WealthView wealth={state.wealth} onAdd={addWealth} onDelete={deleteWealth} />
+      )}
+      {activeTab === 'save' && <SavingsView transactions={state.transactions} />}
+      {activeTab === 'categories' && (
+        <CategoriesView
+          categories={state.categories}
+          onAddCategory={addCategory}
+          onDeleteCategory={deleteCategory}
+          onAddSubcategory={addSubcategory}
+          onRemoveSubcategory={removeSubcategory}
+        />
+      )}
 
       <Fab onClick={() => setSheetOpen(true)} />
 
